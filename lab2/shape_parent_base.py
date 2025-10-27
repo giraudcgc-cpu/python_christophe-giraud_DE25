@@ -54,6 +54,23 @@ def __lt__(self, other):
         return f"You cannot compare apples and oranges"
     return # self.area < other.area or .perimeter ???
 
+# moving figures with translate()
+def translate(self, moved_x, moved_y):
+    if not isinstance(moved_x, int|float) or if not isinstance(moved_y, int|float):
+        raise TypeError("Please enter valid input: integer or float")
+    self._x = moved_x
+    self._y = moved_y
+
+# to be overidden in both children
+#def __repr__(self):
+#    return f"shape:{type(self)}, with center coordinates at (x={self._x}, y={self._y})"
+
+def __str__(self):
+    return f"This represents a {type()}. Its center coordinates are x={self._x} and y={self._y}"
+
+#drawing???
+
+
 
 
 
