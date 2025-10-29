@@ -57,11 +57,11 @@ def __lt__(self, other):
     return # self.area < other.area or .perimeter ???
 
 # moving figures with translate()
-def translate(self, moved_x, moved_y):
-    if not isinstance(moved_x, int|float) or not isinstance(moved_y, int|float):
+def translate(self, x2, y2):
+    if not isinstance(x2, int|float) or not isinstance(y2, int|float):
         raise TypeError("Please enter valid input: integer or float")
-    self._x = moved_x
-    self._y = moved_y
+    self._x = x2
+    self._y = y2
 
 # to be overidden in both children
 def __repr__(self):
