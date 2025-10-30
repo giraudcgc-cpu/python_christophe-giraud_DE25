@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 class Shapes:
     def __init__(self, x: int|float = 0, y: int|float = 0) -> None: #error: had "sself"
         if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
-            raise TypeError("x and y must be integer or float")
+            raise TypeError("x and y must be numbers")
         self._x = x
         self._y = y 
 # _x and _y are marked private, should only be modified through translate() 
@@ -21,9 +21,8 @@ def x(self):
 def y(self):
     return self._y
 
-# area or perimeter here as "common operations" AND  under the children as split perimeter/area for both + overide ???
 def area(self):
-    self.are = area
+    self.area = area
     pass
 
 def perimeter(self):
@@ -32,14 +31,14 @@ def perimeter(self):
 
 
 def __eq__(self, other):
-    if not isinstance(other, type(self)): # if other is not the same type as self (circle or rectangle)
+    if not isinstance(other, Shapes): # if other is not the same type as self (circle or rectangle)
         return False
     return self._x == other._x and self._y == other._y 
 
-def __ge__(self, other): # >= Greater than or equal to ???comparing areas or perimeter?
-    if not isinstance(other, type(Shapes)): # if other is not a type of shape
+def __ge__(self, other): # >= Greater than or equal to 
+    if not isinstance(other, Shapes): # if other is not a type of shape
         return f"You cannot compare apples and oranges!"
-    return #??? not sure >=
+    return self.area <= other.area
 
 def __le__(self, other):   # <= Less than or equal to
     if not isinstance(other, type(Shapes)):
@@ -47,17 +46,17 @@ def __le__(self, other):   # <= Less than or equal to
     return #??? <= size/area to compare???
 
 def __gt__(self, other): 
-    if not isinstance(other, type(Shapes)):
+    if not isinstance(other, Shapes):
         return f"You cannot compare apples and oranges"
-    return # self.area > other.area or self.periimeter > other.perimeter ???
+    return self.area > other.area or self.perimeter > other.perimeter
 
 def __lt__(self, other):
-    if not isinstance(other, type(Shapes)):
+    if not isinstance(other, Shapes):
         return f"You cannot compare apples and oranges"
-    return # self.area < other.area or .perimeter ???
+    return self.area < other.area
 
 # moving figures with translate()
-def translate(self, x2, y2):
+def translate(self, x2:float|int, y2:float|int):
     if not isinstance(x2, int|float) or not isinstance(y2, int|float):
         raise TypeError("Please enter valid input: integer or float")
     self._x = x2
@@ -73,17 +72,12 @@ def __str__(self):
 # matplotlib: googled how to create a circle with matplotlib python
 # or https://www.geeksforgeeks.org/python/how-to-draw-a-circle-using-matplotlib-in-python/
 
-# ??? can it be just "pass" here instead of several lines of code to overide in the children???
-# def draw(self):
-#    pass 
-def draw(self):
-    fig, ax = plt.subplots()
-    ax.set.aspect('equal')
-    ax.set_xlim(self._x - 5, self._x + 5)  #random and small to test
-    ax.set_ylim(self._y - 5, self._y + 5)
-    plt.show()
+# ??? can it be just "pass" here instead of several lines of code to overide in the children??? 
+def draw(self, ax: plt.Axes) -> None:
+    pass
 
-
+#def draw(self, ax: plt.Axes | None = None) -> None:
+#       raise NotImplementedError("Subclasses must implement draw()")
 
 
 

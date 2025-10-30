@@ -1,7 +1,8 @@
-from shape_parent_base import Shapes
+from shape import Shapes
 import matplotlib.pyplot as plt
 import math     #error: did not know, had to import math, so math.pi was not defined
 # import math found at https://www.w3schools.com/python/ref_math_pi.asp
+# https://www.youtube.com/watch?v=T8RXMRlRoRg
 
 class Circle(Shapes):   #inheritance
         def __init__(self, x=0, y=0, radius=1) -> int|float: #radius must be minimum 1, "by default"
