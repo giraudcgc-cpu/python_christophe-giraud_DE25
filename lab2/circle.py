@@ -1,10 +1,10 @@
-from shape import Shapes
+from shape import Shape
 import matplotlib.pyplot as plt
 import math     #error: did not know, had to import math, so math.pi was not defined
 # import math found at https://www.w3schools.com/python/ref_math_pi.asp
 # https://www.youtube.com/watch?v=T8RXMRlRoRg
 
-class Circle(Shapes):   #inheritance
+class Circle(Shape):   #inheritance
         def __init__(self, x=0, y=0, radius=1) -> int|float: #radius must be minimum 1, "by default"
             super().__init__(x, y)
             if not isinstance(radius, float|int):
@@ -17,7 +17,7 @@ class Circle(Shapes):   #inheritance
 def radius(self):
     self._radius = radius
 
-# here will overide parent Shapes
+# here will overide parent Shape
 @property
 def area(self):
     return f"Area = {math.pi} * {self._radius} ** 2"  # took pie from https://www.w3schools.com/python/ref_math_pi.asp
