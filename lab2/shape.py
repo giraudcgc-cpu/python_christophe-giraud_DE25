@@ -40,14 +40,18 @@ class Shape:
         return self._x == other._x and self._y == other._y 
 
     def __ge__(self, other): # >= Greater than or equal to 
-        if not isinstance(other, Shape): # if other is not a type of shape
-            return f"NEED TO DEFINE ERROR MESSAGE 1"
-        return self.area <= other.area
+        if isinstance(other, Shape): 
+            return self.area >= other.area
+        if isinstance (other(float, int)):
+            return self.area >= other.area
+        return NotImplemented
 
     def __le__(self, other):   # <= Less than or equal to
-        if not isinstance(other, type(Shape)):
-            return f"NEED TO DEFINE ERROR MESSAGE 2"
-        return #??? <= perimeter_is???
+        if isinstance(other, type(Shape)):
+            return self.area <=  other.area
+        if isinstance(other, (int, float)):
+            return self.area <=  other.area
+        return NotImplemented
 
     def __gt__(self, other): 
         if isinstance(other, Shape):
@@ -56,13 +60,6 @@ class Shape:
             return self.area > other
         return NotImplemented
     
-
-    # def perimeter to do
-
-    #def __lt__(self, other): 
-     #   if not isinstance(other, Shape):
-     #       return f"NEED TO DEFINE ERROR MESSAGE 3"
-     #   return self.area < other.area # for comparing Shape based on their areas
     
     def __lt__(self, other):
         if isinstance(other, Shape):
@@ -74,10 +71,13 @@ class Shape:
 
 # moving figures with translate()
     def translate(self, x2:float|int, y2:float|int):
-        if not isinstance(x2, (int|float)) or not isinstance(y2, (int|float)):
-            raise TypeError("Please enter valid input: integer or float")
+        if not isinstance(x2, (int|float)):
+            raise TypeError(f"{x2!r} is not valid. Please enter valid input: integer or float, not {type(x2).__name__}")
+        if not isinstance(y2, (int|float)):
+            raise TypeError(f"{y2!r} is not valid. Please enter valid input: integer or float, not {type(y2).__name__}")
         self._x += x2
         self._y += y2
+        return f"moves its center {x2} points in x and {y2} points in y. New center:({self._x},{self._y})"
 
 # to be overidden in both children
     def __repr__(self):
