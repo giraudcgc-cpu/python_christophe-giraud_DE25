@@ -27,11 +27,11 @@ class Shape:
     def center(self, value):
         self._x, self._y = value
 
-    def area(self) -> float|int:
-        raise NotImplementedError # defined in rectangle and circle separated files
+    def area(self):
+        raise NotImplemented # defined in Rectangle and Circle separated files
 
     def perimeter_is(self):       # the same here         
-        raise NotImplementedError
+        raise NotImplemented
 
 
     def __eq__(self, other): # or just pass?

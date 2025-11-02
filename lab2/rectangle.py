@@ -1,6 +1,6 @@
 from shape import Shape
 import math 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # maybe not needed her but rather in testing
 from matplotlib.patches import Rectangle
 # For the rectangle, I used https://www.youtube.com/watch?v=T8RXMRlRoRg
 
@@ -25,12 +25,12 @@ class Rectangle(Shape):
     def width(self):
         return self._width
 
-#overides
+#Overrides parent class
     @property
     def area(self):
         return self._length * self._width
 
-#overides
+#Overrides parent class
     @property
     def perimeter_is(self):
         return 2 * (self._length + self._width)
