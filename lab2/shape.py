@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 class Shape:
     def __init__(self, x: int|float, y: int|float) -> None:         #error: had "sself"
-        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
-            raise TypeError("x and y must be numbers")
+        if not isinstance(x, (int, float)):
+            raise TypeError(f"{x!r} is invalid. Center coordinate x must be a number, int or float, not {type(x).__name__}")
+        if not isinstance(y, (int, float)):
+            raise TypeError(f"{y!r} is invalid. Center coordinate y must be a number, int or float, not {type(y).__name__}")
         self._x = x
         self._y = y 
 

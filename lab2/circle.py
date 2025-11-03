@@ -17,7 +17,7 @@ class Circle(Shape):   #inheritance
     @radius.setter
     def radius(self, value):
         if not isinstance(value, (int, float)):
-            raise TypeError(f"Radius must be a number, integer or float")
+            raise TypeError(f"{value!r} is invalid. Radius must be a number, integer or float, not {type(value).__name__}")
         if value <= 0:
             raise ValueError(f"Radius must be a positive number as distance is positive")
         self._radius = value
@@ -32,11 +32,9 @@ class Circle(Shape):   #inheritance
     def perimeter(self):
         return math.pi * self._radius * 2
               
-    def is_a_unit_circle(self) -> bool:
-        if self._radius == 1 and self._x == 0 and self._y == 0:
-            return True
-        else:
-            return False
+    def unit_circle(self) -> bool:
+        return self._radius == 1 and self._x == 0 and self._y == 0
+# need to check test this with "x" 
 
 #overides
     def __eq__(self, other):
@@ -52,6 +50,7 @@ class Circle(Shape):   #inheritance
 #overides
     def __str__(self):
         return f"This circle has center coordinates x={self._x}, y={self._y} and a radius of {self._radius}"
+
 
 #overides
 # matplotlib https://www.geeksforgeeks.org/python/how-to-draw-a-circle-using-matplotlib-in-python/
