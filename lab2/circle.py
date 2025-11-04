@@ -16,6 +16,8 @@ class Circle(Shape):   #inheritance
 
     @radius.setter
     def radius(self, value):
+        if value is None:
+            return ValueError(f"Missing radius value! You need to enter the radius value!")
         if not isinstance(value, (int, float)):
             raise TypeError(f"{value!r} is invalid. Radius must be a number, integer or float, not {type(value).__name__}")
         if value <= 0:
@@ -29,30 +31,34 @@ class Circle(Shape):   #inheritance
 
 #Overrides parent class
     @property
-    def perimeter(self):
+    def perimeter_is(self):
         return math.pi * self._radius * 2
+    
+    @property
+    def perimeter_rounded(self):  
+        return round(self.perimeter_is, 2)
               
     def unit_circle(self) -> bool:
         return self._radius == 1 and self._x == 0 and self._y == 0
 # need to check test this with "x" 
 
-#overides
-    def __eq__(self, other):
-        if not isinstance(other, type(self)):
+#Overrides if same radius, they have same area and same perimeter. ignoring center postion
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Circle):
             return False
-        if self._radius == other._radius:   # error: had 0 instead of ==
-            return True
+        # To be equal, same center and radius
+        return self._radius == other._radius    
     
-#overides
+#Overrides
     def __repr__(self):
         return f"Circle, radius= {self._radius}, center at x={self._x}, y={self._y}"
 
-#overides
+#Overrides
     def __str__(self):
         return f"This circle has center coordinates x={self._x}, y={self._y} and a radius of {self._radius}"
 
 
-#overides
+#Overrides
 # matplotlib https://www.geeksforgeeks.org/python/how-to-draw-a-circle-using-matplotlib-in-python/
 #def draw(self):
   #  fig, ax = plt.subplots()

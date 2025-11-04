@@ -5,34 +5,43 @@
 import matplotlib.pyplot as plt
 
 class Shape:
-    def __init__(self, x: int|float, y: int|float) -> None:         #error: had "sself"
-        if not isinstance(x, (int, float)):
-            raise TypeError(f"{x!r} is invalid. Center coordinate x must be a number, int or float, not {type(x).__name__}")
-        if not isinstance(y, (int, float)):
-            raise TypeError(f"{y!r} is invalid. Center coordinate y must be a number, int or float, not {type(y).__name__}")
-        self._x = x
-        self._y = y 
-
+    def __init__(self, x: int|float, y: int|float) -> None:        
+        self.x = x
+        self.y = y 
+    
     @property
     def x(self):
         return self._x
-
+    
+    @x.setter
+    def x(self, value):
+        if value is None:
+            raise ValueError("Missing x value! You need to enter the x value!")
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"{value!r} is invalid. Center coordinate x must be a number, int or float, not {type(value).__name__}")
+        if value < 0:
+            raise ValueError(f"Value cannot be less than zero 0")  
+        self._x = value
+        
     @property
     def y(self):
         return self._y
     
-    @property #defined the center
-    def center(self):
-        return (self._x, self._y)
-
-    @center.setter 
-    def center(self, value):
-        self._x, self._y = value
+    @y.setter
+    def y(self, value):
+        if value is None:
+            raise ValueError("Missing y value! You need to enter the y value!")
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"{value!r} is invalid. Center coordinate y must be a number, int or float, not {type(value).__name__}")
+        if value < 0:
+            raise ValueError(f"Value cannot be less than zero 0")  #ask Kokchun if we auhtorize negative numbers
+        self._y = value
+        
 
     def area(self):
-        raise NotImplemented # defined in Rectangle and Circle separated files
+        raise NotImplemented # defined in children classes
 
-    def perimeter_is(self):       # the same here         
+    def perimeter_is(self):  # the same here         
         raise NotImplemented
 
 
@@ -44,7 +53,7 @@ class Shape:
     def __ge__(self, other): # >= Greater than or equal to 
         if isinstance(other, Shape): 
             return self.area >= other.area
-        if isinstance (other(float, int)):
+        if isinstance(other(float, int)):
             return self.area >= other.area
         return NotImplemented
 
@@ -86,7 +95,7 @@ class Shape:
         return f"shape:{type(self)}, center (x={self._x}, y={self._y})"
 
     def __str__(self):
-        return f"This represents a {type()}. Its center coordinates are x={self._x} and y={self._y}"
+        return f"This represents a {type(self).__name__}. Its center coordinates are x={self._x} and y={self._y}"
 
 # matplotlib: googled how to create a circle with matplotlib python
 # https://www.geeksforgeeks.org/python/how-to-draw-a-circle-using-matplotlib-in-python/

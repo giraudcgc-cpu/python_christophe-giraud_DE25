@@ -6,24 +6,48 @@ from matplotlib.patches import Rectangle
 
 
 class Rectangle(Shape):
-    def __init__(self, x:int|float, y:int|float, length: int|float, width: int|float):
+    #def __init__(self, x:int|float, y:int|float, length: int|float, width: int|float):
+    def __init__(self, *args: int | float): #arg helps me if user forgets a value
+        if len(args) != 4:
+            raise ValueError(f"A missing value! Rectangle requires 4 values (x_value, y_value, length, width) got only {len(args)}/4!")
+        
+        x, y, length, width = args
+        
+        if not all(isinstance(v, (int, float)) for v in args):
+            raise TypeError("All values must be int or float")
+        
         super().__init__(x, y)
-        if not isinstance(length, (int, float)):
-            raise TypeError(f"{length!r} is invalid. Length must be a positive number, integer or float, not {type(length).__name__}")
-        if not isinstance(width, (int, float)):
-            raise TypeError(f"{width!r} is invalid. Width must be a positive number, integer or float, not {type(width).__name__}")
-        if length <= 0 or width <= 0:
-            raise ValueError("Enter a positive number greater than 0")
-        self._length = length
-        self._width = width
+        self.length = length
+        self.width = width
 
     @property
     def length(self):
         return self._length
+    
+    @length.setter
+    def length(self, value):
+        if value is None:
+            raise ValueError("Missing length value! You need to enter a length value")
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"{value!r} is invalid. Length must be a positive number, integer or float, not {type(value).__name__}")
+        if value <= 0:
+            raise ValueError("Length must be a positive number greater than 0")
+        self._length = value
+        
 
     @property
     def width(self):
         return self._width
+    
+    @width.setter
+    def width(self, value):
+        if value is None:
+            raise ValueError("Missing width value! You need to enter a width value")
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"{value!r} is invalid. Width must be a positive number, integer or float, not {type(value):__name__}")
+        if value <= 0:
+            raise ValueError("Width must eb a proditve number greater than 0")
+        self._width = value
 
 #Overrides parent class
     @property
@@ -53,6 +77,7 @@ class Rectangle(Shape):
     def __eq__(self, other)-> bool:
         if not isinstance(other, Rectangle):
             return False
+        # inclination is not a problem
         if self._length == other._length and self._width == other._width:
             return True
         if self._length == other._width and self._width == other._length:
