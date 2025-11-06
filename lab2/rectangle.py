@@ -3,7 +3,7 @@
 from shape import Shape
 import math
 from utils import validate_positive, validate_number # !!! no import of _area_of here
-# !!! no import of _area_of here
+
 
 class Rectangle(Shape):
     def __init__(self, x:int|float, y:int|float, length: int|float, width: int|float):     
@@ -17,7 +17,7 @@ class Rectangle(Shape):
     
     @length.setter
     def length(self, value):
-        validate_number(value, "length")
+        validate_number(value)
         validate_positive(value, "length")
         self._length = value
         
@@ -27,7 +27,7 @@ class Rectangle(Shape):
     
     @width.setter
     def width(self, value):
-        validate_number(value, "width")
+        validate_number(value)
         validate_positive(value, "width")
         self._width = value
 

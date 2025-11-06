@@ -1,6 +1,6 @@
 from numbers import Number
 from typing import Any
-from shape import Shape
+
 
 def validate_number(value: Any) -> None:
     if not isinstance(value, Number):
