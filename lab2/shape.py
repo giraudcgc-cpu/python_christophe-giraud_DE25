@@ -2,7 +2,17 @@
 # I will, as much as possible, include the common behaviours/actions
 # think about documentation
 
-import matplotlib.pyplot as plt
+from utils import validate_number, validate_other
+from numbers import Number
+from typing import Any
+
+# oblige to drop this here as I had error that function was not define as too low in the code lecture
+def _area_of(other: Any) -> float: #tried in utils but circular import issue so, moved it here, private so nobody calls it, only used here
+        if isinstance(other, Shape):
+            return other.area
+        if isinstance(other, Number):
+            return float(other)   # in matplotlib int become float, will need it for pi. keep it simple, otherwise need to use Union[]
+        return NotImplemented
 
 class Shape:
     def __init__(self, x: int|float, y: int|float) -> None:        
@@ -15,12 +25,7 @@ class Shape:
     
     @x.setter
     def x(self, value):
-        if value is None:
-            raise ValueError("Missing x value! You need to enter the x value!")
-        if not isinstance(value, (int, float)):
-            raise TypeError(f"{value!r} is invalid. Center coordinate x must be a number, int or float, not {type(value).__name__}")
-        if value < 0:
-            raise ValueError(f"Value cannot be less than zero 0")  
+        validate_number(value, "x")
         self._x = value
         
     @property
@@ -29,12 +34,7 @@ class Shape:
     
     @y.setter
     def y(self, value):
-        if value is None:
-            raise ValueError("Missing y value! You need to enter the y value!")
-        if not isinstance(value, (int, float)):
-            raise TypeError(f"{value!r} is invalid. Center coordinate y must be a number, int or float, not {type(value).__name__}")
-        if value < 0:
-            raise ValueError(f"Value cannot be less than zero 0")  #ask Kokchun if we auhtorize negative numbers
+        validate_number(value, "y")
         self._y = value
         
 
@@ -46,59 +46,40 @@ class Shape:
 
 
     def __eq__(self, other): # or just pass?
-        if not isinstance(other, Shape): # if other is not the same type as self (circle or rectangle)
+        if not isinstance(other, Shape): 
             return False
         return self._x == other._x and self._y == other._y 
+    
+#Moved _area_of()other from here to the top
 
     def __ge__(self, other): # >= Greater than or equal to 
-        if isinstance(other, Shape): 
-            return self.area >= other.area
-        if isinstance(other(float, int)):
-            return self.area >= other.area
-        return NotImplemented
-
+        return self.area >= _area_of(other)
+    
     def __le__(self, other):   # <= Less than or equal to
-        if isinstance(other, type(Shape)):
-            return self.area <=  other.area
-        if isinstance(other, (int, float)):
-            return self.area <=  other.area
-        return NotImplemented
+        return self.area <=  _area_of(other)
 
     def __gt__(self, other): 
-        if isinstance(other, Shape):
-            return self.area > other.area
-        if isinstance(other, (int, float)):
-            return self.area > other
-        return NotImplemented
-    
+        return self.area > _area_of(other)
     
     def __lt__(self, other):
-        if isinstance(other, Shape):
-            return self.area < other.area
-        if isinstance(other, (float, int)):
-            return self.area < other.area
-        return NotImplemented
-       
+        return self.area < _area_of(other)
+        
 
 # moving figures with translate()
     def translate(self, x2:float|int, y2:float|int):
-        if not isinstance(x2, (int|float)):
-            raise TypeError(f"{x2!r} is not valid. Please enter valid input: integer or float, not {type(x2).__name__}")
-        if not isinstance(y2, (int|float)):
-            raise TypeError(f"{y2!r} is not valid. Please enter valid input: integer or float, not {type(y2).__name__}")
+        validate_number(x2, "translation in x")
+        validate_number(y2, "translation in y")
         self._x += x2
         self._y += y2
         return f"moves its center {x2} points in x and {y2} points in y. New center:({self._x},{self._y})"
 
 # to be overidden in both children
     def __repr__(self):
-        return f"shape:{type(self)}, center (x={self._x}, y={self._y})"
+        return f"shape{type(self)}, center (x={self._x}, y={self._y})"
 
     def __str__(self):
         return f"This represents a {type(self).__name__}. Its center coordinates are x={self._x} and y={self._y}"
 
+#BELOW IS FOR DRAW - MAYBE
 # matplotlib: googled how to create a circle with matplotlib python
 # https://www.geeksforgeeks.org/python/how-to-draw-a-circle-using-matplotlib-in-python/
-# ??? can it be just "pass" here instead of several lines of code to overide in the children??? 
-    def draw(self):
-        pass

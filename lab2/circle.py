@@ -1,12 +1,15 @@
-from shape import Shape
-import matplotlib.pyplot as plt # maybe not needed her but rather in testing
-import math     #error: did not know, had to import math, so math.pi was not defined
+    
+#error: did not know, had to import math, so math.pi was not defined
 # import math found at https://www.w3schools.com/python/ref_math_pi.asp
 # https://www.youtube.com/watch?v=T8RXMRlRoRg
 # took pie from https://www.w3schools.com/python/ref_math_pi.asp
+from shape import Shape
+import matplotlib.pyplot as plt # maybe not needed her but rather in testing
+import math 
+from utils import validate_number, validate_positive # !!! no import of _area_of here
 
-class Circle(Shape):   #inheritance
-    def __init__(self, x:int|float, y:int|float, radius) -> None: #radius must be minimum 1, "by default"
+class Circle(Shape):   
+    def __init__(self, x:int|float, y:int|float,radius=1) -> None: 
         super().__init__(x, y)
         self.radius = radius      
 
@@ -16,12 +19,8 @@ class Circle(Shape):   #inheritance
 
     @radius.setter
     def radius(self, value):
-        if value is None:
-            return ValueError(f"Missing radius value! You need to enter the radius value!")
-        if not isinstance(value, (int, float)):
-            raise TypeError(f"{value!r} is invalid. Radius must be a number, integer or float, not {type(value).__name__}")
-        if value <= 0:
-            raise ValueError(f"Radius must be a positive number as distance is positive")
+        validate_number(value, "radius")
+        validate_positive(value, "radius")
         self._radius = value
 
 #Overrides parent class
@@ -51,7 +50,7 @@ class Circle(Shape):   #inheritance
     
 #Overrides
     def __repr__(self):
-        return f"Circle, radius= {self._radius}, center at x={self._x}, y={self._y}"
+        return f"{type(self).__name__}(x={self._x}, y={self._y}, radius={self._radius}"
 
 #Overrides
     def __str__(self):
