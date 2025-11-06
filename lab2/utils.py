@@ -1,7 +1,6 @@
 from numbers import Number
 from typing import Any
 
-
 def validate_number(value: Any) -> None:
     if not isinstance(value, Number):
         raise TypeError(f"Invalid {value!r}! Value must be a number (integer or float), not {type(value).__name__}")
