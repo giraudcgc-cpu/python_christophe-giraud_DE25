@@ -17,6 +17,8 @@ class Shape:
     
     @x.setter
     def x(self, value) -> Number:
+        if isinstance(value, bool):
+            raise TypeError(f"Invalid {type(value).__name__}, length must be a positive number, int or float")
         validate_number(value)
         self._x = value
         
@@ -26,6 +28,8 @@ class Shape:
     
     @y.setter
     def y(self, value) -> Number:
+        if isinstance(value, bool):
+            raise TypeError(f"Invalid {type(value).__name__}, length must be a positive number, int or float")
         validate_number(value)
         self._y = value
 
@@ -36,6 +40,16 @@ class Shape:
     # defined in children classes
     def perimeter_is(self):          
         raise NotImplementedError
+    
+    #First I had them in circle and had forgoten Rectangle
+    # with my compare_with makes sense to have it for both (here)
+    @property
+    def area_rounded(self) -> Number:
+        return round(self.area, 2)
+
+    @property
+    def perimeter_rounded(self) -> Number:  
+        return round(self.perimeter_is, 2)
 
     def __eq__(self, other): 
         raise NotImplementedError
@@ -44,6 +58,8 @@ class Shape:
     def _area_of(self, other: Any) -> float: 
         if isinstance(other, Shape):
             return other.area
+        if isinstance(other, bool):
+            raise TypeError(f"Invalid comparison {type(self).__name__} with boolean")
         if isinstance(other, Number):
             # in matplotlib int become float, will need it for pi
             return float(other)   
@@ -69,6 +85,29 @@ class Shape:
         self.y = self.y + y2
         return self
         # return f"moves its center {x2} points in x and {y2} points in y. New center:({self._x},{self._y})"
+
+    def compare_with(self, other: Any) -> str:
+        # __eq__ in the children classes compares the dimensions, here comparing, shapes, area, perimeter
+        if not isinstance(other, Shape):
+            if isinstance(other, bool):
+                raise TypeError(f"Invalid comparison {type(self).__name__} with boolean")
+            if isinstance(other, Number):
+                return f"Comparison between {type(self).__name___} and value {other}:"
+                f"{type(self).__name___} has an area of {self.area_rounded}."
+                f"The value is {other}"
+            raise TypeError(f"{type(self).__name__} cannot be compare with {type(other).__name__}")
+        
+        if isinstance(other,Shape):
+            same_type = type(self) == type(other)
+            same_or_not = "Same type!" if same_type else "Different types!"
+            
+        comparison_result = print(f"{type(self).__name__} Vs {type(other).__name__}")
+        print("They are {same_or_not}") 
+        print(f"{type(self).__name__} perimeter is: {self.perimeter_rounded}")
+        print(f"{type(other).__name__} perimeter is: {other.perimeter_rounded}")
+        print(f"{type(other).__name__} area is: {other.area_rounded}")
+        print(f"{type(other).__name__} area is: {other.area_rounded}")
+####way too big
 
 
     # overidden in both children classes

@@ -17,6 +17,8 @@ class Rectangle(Shape):
     
     @length.setter
     def length(self, value) -> Number: 
+        if isinstance(value, bool):
+            raise TypeError(f"Invalid {type(value).__name__}, length must be a positive number, int or float")
         validate_number(value)
         validate_positive(value, "length")
         self._length = value
@@ -27,6 +29,8 @@ class Rectangle(Shape):
     
     @width.setter
     def width(self, value) -> Number:
+        if isinstance(value, bool):
+            raise TypeError(f"Invalid {type(value).__name__}, length must be a positive number, int or float")
         validate_number(value)
         validate_positive(value, "width")
         self._width = value
