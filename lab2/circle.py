@@ -1,6 +1,6 @@
 from shape import Shape
 import math 
-from utils import validate_number, validate_positive # !!! no import of _area_of here = to delete
+from utils import validate_number, validate_positive 
 from numbers import Number
 
 class Circle(Shape):   
