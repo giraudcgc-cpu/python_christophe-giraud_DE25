@@ -67,11 +67,12 @@ class Shape:
         validate_number(value)
         self._x = value
 
-    # Same logic as for x   
+    # define getter  
     @property
     def y(self) -> Number:
         return self._y
     
+    # define setter method for y
     @y.setter
     def y(self, value) -> None:
         if isinstance(value, bool):
@@ -79,31 +80,30 @@ class Shape:
         validate_number(value)
         self._y = value
 
-    # read-only
+    # read-only / define getter for area
     @property  
     def area(self) -> Number: 
         """Area of the shape — To override in Circle/Rectangle!"""
         raise NotImplementedError("Children classes will define area")
     
-
-    # read-only
+    # read-only / define getter for perimeter
     @property
     def perimeter(self) -> Number:   
         """Perimeter — To override in child class!"""       
         raise NotImplementedError("Children classes will implement")
     
-    
+    # define area_rounded property
     @property
     def area_rounded(self) -> Number:
         """Encapsulated, rounded area at 2 decimals."""
         return round(self.area, 2)
 
+    # define getter property 
     @property
     def perimeter_rounded(self) -> Number:  
         """Encapsulated, rounded perimeter at 2 decimals"""
         return round(self.perimeter, 2)
 
-       
     def _area_of(self, other: Any) -> float: 
         """Private helper so nobody calls it, only used here to gets the area of other"""
         if isinstance(other, Shape):
@@ -143,7 +143,6 @@ class Shape:
         self.y = self.y + y2
         return self
         
-
     def _get_the_name(self) -> str:
         """Private helper, to return self.name or the type(self).__name__
         allows readable name for compare_with just below"""    

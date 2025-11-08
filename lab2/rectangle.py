@@ -9,7 +9,7 @@ class Rectangle(Shape):
     """ 
     Rectangle inherits from Shape (parent class).
 
-    The centre is determined by: x,y, length, width
+    The centre is determined by: x,y
     x and y can be negative, length and width must be positive
     Values are validated and encapsulated like _length and _width
 
@@ -51,18 +51,20 @@ class Rectangle(Shape):
     The first one (Rectangle) area is 12 and perimeter is 14
     The second one (Circle) area is 28.27 and perimeter is 18.85"""
 
-    def __init__(self, x: Number, y:Number, length: Number, width: Number): 
+    def __init__(self, x: Number, y:Number, length: Number, width: Number) -> None: 
         """Create rectangle with obligatory: center at coordinate (x, y) with length and width
         x and y can be negative, not length and width, validation via setters (no bool and > 0)"""    
         super().__init__(x, y)
         self.length = length
         self.width = width
 
+    # define length property getter
     @property
-    def length(self) -> None:
+    def length(self) -> Number:
         """Length of rectangle is private and stored as _length"""
         return self._length
     
+    # define setter method for length / validation / raise error
     @length.setter
     def length(self, value) -> None: 
         """Set length must be number > 0 (no bool)
@@ -73,11 +75,13 @@ class Rectangle(Shape):
         validate_positive(value, "length")
         self._length = value
         
+    # define getter width property  
     @property
-    def width(self) -> None:
+    def width(self) -> Number:
         """Same logic as for length above"""
         return self._width
     
+    # define setter method for width / validation / raise error
     @width.setter
     def width(self, value) -> None:
         """Same logic as for length above"""
@@ -100,13 +104,16 @@ class Rectangle(Shape):
     def is_square(self) -> bool:  
         """Unique for Rectangle"""                      
         return self.length == self.width
-                
+
+    # overrides parent class        
     def __repr__(self) -> str:
         return f"{type(self).__name__}(x={self.x}, y={self.y}, length={self._length}, width={self._width})"
 
+    # overrides parent class
     def __str__(self) -> str:
         return f"Point ({self.x}, {self.y}) is the center of the rectangle with length {self._length} and width {self._width}"
 
+    # overrides parent class
     def __eq__(self, other)-> bool:
         """Equal if same dimensions, length/width can swap"""
         if not isinstance(other, Rectangle):

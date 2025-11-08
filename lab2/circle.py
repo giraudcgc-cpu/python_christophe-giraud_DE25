@@ -56,11 +56,13 @@ class Circle(Shape):
         self.radius = radius  
         """calls setter for validation"""   
 
+    # defines the radius property / getter
     @property
     def radius(self) -> Number:
         """Public, but stored privately as _radius"""
         return self._radius
 
+    # defines setter method for radius / validation / raise error
     @radius.setter
     def radius(self, value) -> None:  
         """Sets radius, only way to change _radius.
@@ -76,16 +78,15 @@ class Circle(Shape):
     def area(self) -> Number:
         return math.pi * (self._radius ** 2)
     
-    
     # overrides parent class
     @property
     def perimeter(self) -> Number:
         return math.pi * self._radius * 2
-    
-                 
+          
     def is_unit_circle(self) -> bool:
         return self._radius == 1 and self._x == 0 and self._y == 0
 
+    # overrides parent class
     def __eq__(self, other) -> bool:
         """Equal if same radius, the centre is ignored
         Same radius --> same area and perimeter"""
